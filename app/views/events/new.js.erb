@@ -1,0 +1,33 @@
+$('#event_dialog').html('<%= j render "new", is_remote: true %>');
+$('#new_event').dialog(
+    {
+        modal: true,
+        minWidth: 400,
+        create: function( event, ui ) {
+            $('.form-select').select2({width: '100%'});
+        },
+        open: function(){
+            $(document).bind('click', function(e){
+                if(!$(e.target).is('.ui-dialog, a') && !$(e.target).closest('.ui-dialog').length){
+                    $('.ui-dialog-content').dialog('close');
+                }
+            });
+            $('.ui-dialog-content').on("dialogclose", function() {
+                calendar.unselect()
+                $('.ui-dialog-content').dialog('destroy')
+                $('#event_dialog').html('')
+            });
+            $('input.event_start, input.event_end').change(function(){
+                let start, end
+                start = moment($('input.event_start').val()).format('YYYY-MM-DDTHH:mm')
+                const view = calendar.view
+                if(view.type == 'dayGridMonth'){
+                    end = moment($('input.event_end').val()).add(1, 'days').startOf('date').format('YYYY-MM-DDTHH:mm')
+                }else{
+                    end = moment($('input.event_end').val()).format('YYYY-MM-DDTHH:mm')
+                }
+                calendar.select(start, end)
+            });
+        }
+    }
+)

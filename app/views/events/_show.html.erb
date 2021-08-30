@@ -1,0 +1,59 @@
+
+
+<div id="detail_event" title="<%= @event.title %>">
+  <% if current_user == @event.creator%>
+    <div class="dialog-dropdown">
+      <button class="btn" type="button" id="dialogActions" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button> 
+      <div class="dropdown-menu" aria-labelledby="dialogActions">
+        <%= link_to edit_event_path(@event), class: "dropdown-item"  do %><i class="fas fa-edit"></i>  Edit<% end %>
+        <%= link_to @event, method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown-item" do %><i class="fas fa-trash"></i>  Delete<% end %>
+      </div>
+    </div>
+  <%end%>
+
+
+  <dl>
+    <dt>Start - End</dt>
+    <dd class="text-center">
+      <%= @event.start.to_formatted_s(:long_ordinal) %> -
+      <%= @event.end.to_formatted_s(:long_ordinal) %>
+    </dd>
+  </dl>
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">Event Creator</th>
+        <td>
+          <ul>
+            <li>
+              <%= @event.creator.username %>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Participants</th>
+        <td>
+          <ol>
+            <% @event.participants.each do |p| %>
+            <li><%= p.username %></li>
+            <% end %>
+          </ol>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Color</th>
+        <td><input type="color" class="ms-3" value="<%= @event.color%>" disabled/></td>
+      </tr>
+      <% if @event.description.present? %>
+        <tr>
+          <th scope="row">Description</th>
+          <td><div class="ms-3"><%= @event.description %></div></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+

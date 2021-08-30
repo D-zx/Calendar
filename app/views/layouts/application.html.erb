@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calendar</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title><%= content_for?(:title) ? yield(:title) : "Template" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Template" %>">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag '//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css' %>
+  </head>
+
+  <body>
+    <header>
+      <%= render 'layouts/navigation' %>
+    </header> 
+    <main role="main">
+      <div class='container'>
+        <div id="flash">
+          <%= render 'layouts/alert' %>
+        </div>
+        <%= yield %>
+      </div>
+    </main> 
+
+  </body>
+</html>

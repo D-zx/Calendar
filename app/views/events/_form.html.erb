@@ -1,0 +1,17 @@
+<%= simple_form_for @event, defaults: { input_html: { class: 'mb-3' } }, remote: is_remote do |f| %>
+  <div class="form-inputs mb-2">
+    <%= f.input :title, label: 'Event Title', placeholder: 'Title' %>
+    <div class="row mb-3">
+      <%= f.label :start, label: 'Start-End' %>
+      <%= f.input :start, as: :datetime, html5: true, label: false ,wrapper_html: { class: 'col-sm-6' }, input_html: { class: 'event_start'} %>
+      <%= f.input :end, as: :datetime, html5: true, label: false ,wrapper_html: { class: 'col-sm-6'}, input_html: { class: 'event_end'}  %>
+    </div>
+    <div class='mb-3'>
+      <%= f.association :participants, collection: User.all_except(current_user).map{ |k| [k.username, k.id] }, input_html: { class: 'form-select'}%>
+    </div>
+    <%= f.input :color, as: :color, input_html: { class: 'w-25 mb-3' } , label: false%>
+    <%= f.input :description %>
+  </div>
+
+  <%= f.button :submit, class: "btn-success" %>
+<% end %>

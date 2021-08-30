@@ -1,0 +1,3 @@
+calendar.addEvent($.parseJSON("<%=j render('events/event.json', event: @event).html_safe %>"))
+$("#flash").html("<%= j render partial:  'layouts/notification' %>");
+$('.ui-dialog-content').dialog('close');
